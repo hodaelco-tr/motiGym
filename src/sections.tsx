@@ -1,12 +1,8 @@
 import { CtaButton } from './components/CtaButton'
+import { WhatsAppButton } from './components/WhatsAppButton'
 import { useReveal } from './hooks/useReveal'
-import {
-  getWhatsAppWebUrl,
-  PHONE_DISPLAY,
-  PHONE_E164,
-} from './lib/whatsapp'
+import { PHONE_DISPLAY, PHONE_E164 } from './lib/whatsapp'
 
-const WHATSAPP = getWhatsAppWebUrl()
 const TEL = `tel:+${PHONE_E164}`
 
 export function Hero() {
@@ -79,9 +75,9 @@ export function Hero() {
           <CtaButton href="#contact" className="min-w-[220px]">
             קבע אימון היכרות חינם
           </CtaButton>
-          <CtaButton href={WHATSAPP} variant="ghost" className="min-w-[180px]">
+          <WhatsAppButton variant="ghost" className="min-w-[180px]">
             דבר איתי ב-WhatsApp
-          </CtaButton>
+          </WhatsAppButton>
         </div>
 
         <p
@@ -432,9 +428,7 @@ export function FinalCta() {
         </p>
 
         <div className="mt-10 flex flex-col items-center gap-5">
-          <CtaButton href={WHATSAPP} className="min-w-[240px]">
-            שלח הודעה ב-WhatsApp
-          </CtaButton>
+          <WhatsAppButton className="min-w-[240px]" />
           <a
             href={TEL}
             className="group inline-flex flex-col items-center gap-1 text-white/55 transition-colors hover:text-white"
@@ -448,12 +442,6 @@ export function FinalCta() {
             >
               {PHONE_DISPLAY}
             </span>
-          </a>
-          <a
-            href={WHATSAPP}
-            className="text-xs text-white/40 underline underline-offset-4 transition-colors hover:text-white/70"
-          >
-            לא נפתח? נסה שוב מכאן
           </a>
         </div>
       </div>

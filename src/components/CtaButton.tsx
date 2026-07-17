@@ -18,10 +18,6 @@ const variants = {
   light: 'bg-white text-ink hover:bg-white/90',
 } as const
 
-function isWhatsApp(href: string) {
-  return /wa\.me|api\.whatsapp\.com|whatsapp:/i.test(href)
-}
-
 export function CtaButton({
   href = '#contact',
   children,
@@ -29,15 +25,13 @@ export function CtaButton({
   className = '',
   onClick,
 }: CtaProps) {
-  const whatsapp = isWhatsApp(href)
   const external = /^https?:/i.test(href)
 
   return (
     <a
       href={href}
       onClick={onClick}
-      // Never use target=_blank for WhatsApp — it breaks the app handoff on phones.
-      {...(external && !whatsapp
+      {...(external
         ? { target: '_blank', rel: 'noopener noreferrer' }
         : undefined)}
       className={`inline-flex min-h-12 items-center justify-center gap-2 px-6 text-base font-bold tracking-wide transition-colors duration-200 ${variants[variant]} ${className}`}

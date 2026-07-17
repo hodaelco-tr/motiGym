@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { CtaButton } from './CtaButton'
+import { WhatsAppButton } from './WhatsAppButton'
 
 export function StickyCta() {
   const [visible, setVisible] = useState(false)
@@ -17,9 +17,7 @@ export function StickyCta() {
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
-      <CtaButton className="w-full" href="#contact">
-        קבע אימון היכרות
-      </CtaButton>
+      <WhatsAppButton className="w-full" />
     </div>
   )
 }
