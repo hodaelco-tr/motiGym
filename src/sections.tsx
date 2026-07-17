@@ -1,11 +1,13 @@
 import { CtaButton } from './components/CtaButton'
 import { useReveal } from './hooks/useReveal'
+import {
+  getWhatsAppWebUrl,
+  PHONE_DISPLAY,
+  PHONE_E164,
+} from './lib/whatsapp'
 
-const PHONE = '972549189411'
-const WHATSAPP_TEXT = encodeURIComponent('היי מרדכי, אשמח לקבוע אימון היכרות')
-// wa.me is the most reliable deep-link for mobile WhatsApp
-const WHATSAPP = `https://wa.me/${PHONE}?text=${WHATSAPP_TEXT}`
-const TEL = `tel:+${PHONE}`
+const WHATSAPP = getWhatsAppWebUrl()
+const TEL = `tel:+${PHONE_E164}`
 
 export function Hero() {
   return (
@@ -42,7 +44,7 @@ export function Hero() {
           className="hidden text-sm font-semibold tracking-wide text-white/70 transition-colors hover:text-white sm:inline"
           dir="ltr"
         >
-          054-918-9411
+          {PHONE_DISPLAY}
         </a>
       </nav>
 
@@ -444,9 +446,18 @@ export function FinalCta() {
               dir="ltr"
               className="font-brand text-2xl font-bold tracking-[0.08em] text-white underline decoration-blaze/70 decoration-2 underline-offset-8 group-hover:decoration-blaze"
             >
-              054-918-9411
+              {PHONE_DISPLAY}
             </span>
           </a>
+          <button
+            type="button"
+            onClick={() => {
+              void navigator.clipboard?.writeText(getWhatsAppWebUrl())
+            }}
+            className="text-xs text-white/40 underline underline-offset-4 transition-colors hover:text-white/70"
+          >
+            לא נפתח? העתק קישור WhatsApp
+          </button>
         </div>
       </div>
     </section>
@@ -459,7 +470,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <p className="font-brand text-2xl font-extrabold tracking-[0.12em]">MOTI</p>
         <a href={TEL} className="text-sm text-muted transition-colors hover:text-ink" dir="ltr">
-          054-918-9411
+          {PHONE_DISPLAY}
         </a>
         <p className="text-sm text-muted">
           © {new Date().getFullYear()} Moti Gym

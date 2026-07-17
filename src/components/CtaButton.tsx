@@ -1,11 +1,12 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, MouseEvent } from 'react'
+import { getWhatsAppWebUrl, openWhatsApp } from '../lib/whatsapp'
 
 type CtaProps = {
   href?: string
   children: ReactNode
   variant?: 'primary' | 'secondary' | 'ghost' | 'light'
   className?: string
-  onClick?: () => void
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void
 }
 
 const variants = {
@@ -29,14 +30,20 @@ export function CtaButton({
   className = '',
   onClick,
 }: CtaProps) {
-  const external = /^https?:/i.test(href)
   const whatsapp = isWhatsApp(href)
+  const resolvedHref = whatsapp ? getWhatsAppWebUrl() : href
+  const external = /^https?:/i.test(resolvedHref)
 
   return (
     <a
-      href={href}
-      onClick={onClick}
-      // WhatsApp deep-links break with target="_blank" on many mobile browsers
+      href={resolvedHref}
+      onClick={(event) => {
+        if (whatsapp) {
+          openWhatsApp(event)
+          return
+        }
+        onClick?.(event)
+      }}
       {...(external && !whatsapp
         ? { target: '_blank', rel: 'noopener noreferrer' }
         : undefined)}
