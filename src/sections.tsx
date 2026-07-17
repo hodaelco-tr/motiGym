@@ -1,4 +1,3 @@
-import { CtaButton } from './components/CtaButton'
 import { WhatsAppButton } from './components/WhatsAppButton'
 import { useReveal } from './hooks/useReveal'
 import { PHONE_DISPLAY, PHONE_E164 } from './lib/whatsapp'
@@ -35,13 +34,6 @@ export function Hero() {
             שאלות
           </a>
         </div>
-        <a
-          href={TEL}
-          className="hidden text-sm font-semibold tracking-wide text-white/70 transition-colors hover:text-white sm:inline"
-          dir="ltr"
-        >
-          {PHONE_DISPLAY}
-        </a>
       </nav>
 
       <div className="relative z-10 mx-auto flex min-h-[calc(100svh-88px)] max-w-6xl flex-col justify-end px-4 pb-16 pt-10 sm:px-6 sm:pb-20 lg:px-10 lg:pb-24">
@@ -68,15 +60,9 @@ export function Hero() {
           אימון אישי עם מוטי. תוכנית מדויקת, ליווי צמוד, תוצאות שנשארות.
         </p>
 
-        <div
-          className="animate-rise mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-          style={{ animationDelay: '0.45s' }}
-        >
-          <CtaButton href="#contact" className="min-w-[220px]">
+        <div className="animate-rise mt-8" style={{ animationDelay: '0.45s' }}>
+          <WhatsAppButton className="min-w-[220px]">
             קבע אימון היכרות חינם
-          </CtaButton>
-          <WhatsAppButton variant="ghost" className="min-w-[180px]">
-            דבר איתי ב-WhatsApp
           </WhatsAppButton>
         </div>
 
@@ -261,7 +247,6 @@ export function Plans() {
       price: 'חינם',
       note: '45 דקות',
       features: ['אבחון מטרות', 'בדיקת טכניקה', 'המלצה למסלול'],
-      cta: 'קבע היכרות',
       featured: false,
     },
     {
@@ -269,7 +254,6 @@ export function Plans() {
       price: 'מסלול חודשי',
       note: 'הכי פופולרי',
       features: ['תוכנית מותאמת', '2–3 מפגשים בשבוע', 'מעקב + תזונה'],
-      cta: 'רוצה להתחיל',
       featured: true,
     },
     {
@@ -277,7 +261,6 @@ export function Plans() {
       price: 'ליווי מרחוק',
       note: 'גמיש ללו״ז',
       features: ['תוכנית דיגיטלית', 'צ׳ק־אין שבועי', 'תיקוני וידאו'],
-      cta: 'שאל על אונליין',
       featured: false,
     },
   ]
@@ -322,7 +305,7 @@ export function Plans() {
               <p className="mt-1 font-brand text-2xl font-bold tracking-wide">
                 {plan.price}
               </p>
-              <ul className="mt-6 flex-1 space-y-3">
+              <ul className="mt-6 space-y-3">
                 {plan.features.map((f) => (
                   <li key={f} className="flex gap-2 text-sm sm:text-base">
                     <span
@@ -333,15 +316,14 @@ export function Plans() {
                   </li>
                 ))}
               </ul>
-              <CtaButton
-                href="#contact"
-                variant={plan.featured ? 'secondary' : 'primary'}
-                className="mt-8 w-full"
-              >
-                {plan.cta}
-              </CtaButton>
             </article>
           ))}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <WhatsAppButton className="min-w-[240px]">
+            קבע אימון היכרות חינם
+          </WhatsAppButton>
         </div>
       </div>
     </section>
@@ -427,22 +409,10 @@ export function FinalCta() {
           קבע אימון היכרות חינם. נבין ביחד מה חסר ואיך נראה המסלול שלך.
         </p>
 
-        <div className="mt-10 flex flex-col items-center gap-5">
-          <WhatsAppButton className="min-w-[240px]" />
-          <a
-            href={TEL}
-            className="group inline-flex flex-col items-center gap-1 text-white/55 transition-colors hover:text-white"
-          >
-            <span className="text-xs font-medium tracking-[0.18em] uppercase">
-              או התקשר
-            </span>
-            <span
-              dir="ltr"
-              className="font-brand text-2xl font-bold tracking-[0.08em] text-white underline decoration-blaze/70 decoration-2 underline-offset-8 group-hover:decoration-blaze"
-            >
-              {PHONE_DISPLAY}
-            </span>
-          </a>
+        <div className="mt-10 flex justify-center">
+          <WhatsAppButton className="min-w-[240px]">
+            קבע אימון היכרות חינם
+          </WhatsAppButton>
         </div>
       </div>
     </section>
