@@ -449,15 +449,12 @@ export function FinalCta() {
               {PHONE_DISPLAY}
             </span>
           </a>
-          <button
-            type="button"
-            onClick={() => {
-              void navigator.clipboard?.writeText(getWhatsAppWebUrl())
-            }}
+          <a
+            href={WHATSAPP}
             className="text-xs text-white/40 underline underline-offset-4 transition-colors hover:text-white/70"
           >
-            לא נפתח? העתק קישור WhatsApp
-          </button>
+            לא נפתח? נסה שוב מכאן
+          </a>
         </div>
       </div>
     </section>

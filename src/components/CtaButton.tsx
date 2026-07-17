@@ -1,5 +1,4 @@
 import type { ReactNode, MouseEvent } from 'react'
-import { getWhatsAppWebUrl, openWhatsApp } from '../lib/whatsapp'
 
 type CtaProps = {
   href?: string
@@ -31,19 +30,13 @@ export function CtaButton({
   onClick,
 }: CtaProps) {
   const whatsapp = isWhatsApp(href)
-  const resolvedHref = whatsapp ? getWhatsAppWebUrl() : href
-  const external = /^https?:/i.test(resolvedHref)
+  const external = /^https?:/i.test(href)
 
   return (
     <a
-      href={resolvedHref}
-      onClick={(event) => {
-        if (whatsapp) {
-          openWhatsApp(event)
-          return
-        }
-        onClick?.(event)
-      }}
+      href={href}
+      onClick={onClick}
+      // Never use target=_blank for WhatsApp — it breaks the app handoff on phones.
       {...(external && !whatsapp
         ? { target: '_blank', rel: 'noopener noreferrer' }
         : undefined)}
