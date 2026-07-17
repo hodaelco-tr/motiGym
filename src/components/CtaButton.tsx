@@ -25,10 +25,15 @@ export function CtaButton({
   className = '',
   onClick,
 }: CtaProps) {
+  const external = /^https?:/i.test(href)
+
   return (
     <a
       href={href}
       onClick={onClick}
+      {...(external
+        ? { target: '_blank', rel: 'noopener noreferrer' }
+        : undefined)}
       className={`inline-flex min-h-12 items-center justify-center gap-2 px-6 text-base font-bold tracking-wide transition-colors duration-200 ${variants[variant]} ${className}`}
     >
       {children}

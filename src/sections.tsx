@@ -3,8 +3,11 @@ import { useReveal } from './hooks/useReveal'
 
 const PHONE = '972549189411'
 const WHATSAPP =
-  `https://wa.me/${PHONE}?text=` +
-  encodeURIComponent('היי מרדכי, אשמח לקבוע אימון היכרות')
+  'https://api.whatsapp.com/send?' +
+  new URLSearchParams({
+    phone: PHONE,
+    text: 'היי מרדכי, אשמח לקבוע אימון היכרות',
+  }).toString()
 const TEL = `tel:+${PHONE}`
 
 export function Hero() {
