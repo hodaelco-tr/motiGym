@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
+  // GitHub Pages project site: https://hodaelco-tr.github.io/motiGym/
+  base: process.env.GITHUB_PAGES === 'true' ? '/motiGym/' : '/',
   plugins: [react(), tailwindcss()],
   server: {
     host: '127.0.0.1',

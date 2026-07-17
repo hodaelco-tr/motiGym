@@ -2,7 +2,13 @@
 
 דף נחיתה שיווקי ל-MOTI — אימון אישי.
 
-## הרצה
+## אתר חי
+
+https://hodaelco-tr.github.io/motiGym/
+
+כל push ל־`main` מעדכן את האתר אוטומטית (GitHub Pages).
+
+## הרצה מקומית
 
 ```bash
 npm install
