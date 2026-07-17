@@ -2,12 +2,9 @@ import { CtaButton } from './components/CtaButton'
 import { useReveal } from './hooks/useReveal'
 
 const PHONE = '972549189411'
-const WHATSAPP =
-  'https://api.whatsapp.com/send?' +
-  new URLSearchParams({
-    phone: PHONE,
-    text: 'היי מרדכי, אשמח לקבוע אימון היכרות',
-  }).toString()
+const WHATSAPP_TEXT = encodeURIComponent('היי מרדכי, אשמח לקבוע אימון היכרות')
+// wa.me is the most reliable deep-link for mobile WhatsApp
+const WHATSAPP = `https://wa.me/${PHONE}?text=${WHATSAPP_TEXT}`
 const TEL = `tel:+${PHONE}`
 
 export function Hero() {
