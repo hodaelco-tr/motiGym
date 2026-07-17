@@ -20,9 +20,8 @@ const variants: Record<Variant, string> = {
 }
 
 /**
- * Cal-style click-to-chat:
- * <a href="https://wa.me/972XXXX">…</a>
- * No JS, no target=_blank, no prefilled text.
+ * WhatsApp click-to-chat with prefilled message.
+ * Plain <a href> — no JS intercept, no target=_blank.
  */
 export function WhatsAppButton({
   children = 'שלח הודעה ב-WhatsApp',
