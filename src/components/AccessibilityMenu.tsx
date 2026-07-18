@@ -35,6 +35,15 @@ export function AccessibilityMenu() {
   const panelRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(false)
   const [prefs, setPrefs] = useState<Prefs>(DEFAULT)
+  const [speaking, setSpeaking] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(true)
+
+  useEffect(() => {
+    setSpeechSupported('speechSynthesis' in window)
+    return () => {
+      window.speechSynthesis?.cancel()
+    }
+  }, [])
 
   useEffect(() => {
     try {
@@ -78,6 +87,40 @@ export function AccessibilityMenu() {
   const update = (patch: Partial<Prefs>) =>
     setPrefs((p) => ({ ...p, ...patch }))
 
+  const stopSpeech = () => {
+    window.speechSynthesis?.cancel()
+    setSpeaking(false)
+  }
+
+  const startSpeech = () => {
+    if (!('speechSynthesis' in window)) return
+
+    const main = document.getElementById('main-content')
+    const text = (main?.innerText || document.body.innerText || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 4500)
+
+    if (!text) return
+
+    window.speechSynthesis.cancel()
+    const utter = new SpeechSynthesisUtterance(text)
+    utter.lang = 'he-IL'
+    utter.rate = 0.95
+
+    const voices = window.speechSynthesis.getVoices()
+    const hebrew =
+      voices.find((v) => v.lang.toLowerCase().startsWith('he')) ||
+      voices.find((v) => v.lang.toLowerCase().includes('he'))
+    if (hebrew) utter.voice = hebrew
+
+    utter.onend = () => setSpeaking(false)
+    utter.onerror = () => setSpeaking(false)
+
+    setSpeaking(true)
+    window.speechSynthesis.speak(utter)
+  }
+
   return (
     <div className="a11y-widget">
       <a href="#main-content" className="a11y-skip">
@@ -118,6 +161,24 @@ export function AccessibilityMenu() {
             >
               סגור
             </button>
+          </div>
+
+          <div className="a11y-speech">
+            <p className="a11y-speech-label">הקראה בקול</p>
+            {speechSupported ? (
+              <div className="a11y-font-btns">
+                <button
+                  type="button"
+                  className="a11y-speech-btn"
+                  onClick={speaking ? stopSpeech : startSpeech}
+                  aria-pressed={speaking}
+                >
+                  {speaking ? 'עצור הקראה' : 'הקרא את העמוד'}
+                </button>
+              </div>
+            ) : (
+              <p className="a11y-speech-note">הדפדפן לא תומך בהקראה</p>
+            )}
           </div>
 
           <div className="a11y-item">
@@ -189,7 +250,14 @@ export function AccessibilityMenu() {
             />
           </label>
 
-          <button type="button" className="a11y-reset" onClick={() => setPrefs(DEFAULT)}>
+          <button
+            type="button"
+            className="a11y-reset"
+            onClick={() => {
+              stopSpeech()
+              setPrefs(DEFAULT)
+            }}
+          >
             איפוס
           </button>
         </div>
